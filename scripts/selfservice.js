@@ -193,7 +193,7 @@ function sendAjaxRequest(ajaxData, ajaxPath) {
 function clearDriverInfo () {
   $('#driverInfo li').remove();
   $('#driverProposedMatches li').remove();
-  $('#driverConfirmedMatches li').remove();
+  $('#driverConfirmedMatches ul.confirmed li').remove();
 }
 
 function clearRiderInfo () {
@@ -482,7 +482,7 @@ function driverConfirmedMatches () {
         var cancelButtonInList =  createListButton("cancelDriverMatchFromButton", "Cancel", ' class="button button--danger" ',
             val.driver_confirmed_matches.uuid_driver, val.driver_confirmed_matches.uuid_rider,
             val.driver_confirmed_matches.score, data.phone);
-        var listSelector = "#driverConfirmedMatches ul";
+        var listSelector = "#driverConfirmedMatches ul.confirmed";
 
         var tmpList = '';
 
