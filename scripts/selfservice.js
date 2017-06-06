@@ -1,7 +1,7 @@
 if (!remoteUrl) {
   var remoteUrl = "https://api.carpoolvote.com/live";
 }
-
+  
 var driverLoggedIn = false;
 var riderLoggedIn = false;
 
@@ -213,18 +213,10 @@ function driverExists () {
     'UUID=' + data.uuid +
     '&DriverPhone=' + data.phone;
 
-  var request = new XMLHttpRequest();
-
-  request.open("GET", url);
-  request.send();
-
-  request.onreadystatechange = function () {
-    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-      console.log(request.responseText);
-
-      var resp = JSON.parse(request.responseText);
-
+  accessCarpoolvoteAPI(url, 
+    function (resp) {
       var keys = Object.keys(resp);
+
       if (keys) {
         var info = resp[keys[0]].toString();
         // $info.text(info);
@@ -244,8 +236,7 @@ function driverExists () {
           driverConfirmedMatches();
         }
       }
-    }
-  };
+    });
 }
 
 function driverInfo () {
@@ -256,18 +247,10 @@ function driverInfo () {
     'UUID=' + data.uuid +
     '&DriverPhone=' + data.phone;
 
-  var request = new XMLHttpRequest();
-
-  request.open("GET", url);
-  request.send();
-
-  request.onreadystatechange = function () {
-    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-      console.log(request.responseText);
-
-      var resp = JSON.parse(request.responseText);
-
+  accessCarpoolvoteAPI(url, 
+    function (resp) {
       var keys = Object.keys(resp);
+      
       if (keys) {
 
         if (keys[0] == "driver_info" ) {
@@ -283,9 +266,8 @@ function driverInfo () {
           $(listSelector).append('<li>' + driverInfo.DriverPhone + '</li>');
           $(listSelector).append('<li>' + driverInfo.DriverLicenseNumber + '</li>');
         }
-      }
-    }
-  };
+      }    
+    });
 }
 
 function processDbInfo (info) {
@@ -367,24 +349,13 @@ function acceptDriverMatchFromButton (UUID_driver, UUID_rider, Score, DriverPhon
                                                     '&UUID_rider='  + UUID_rider +
                                                     '&Score='       + Score +
                                                     '&DriverPhone=' + DriverPhone;
-
-  var request = new XMLHttpRequest();
-
-  request.open("GET", acceptUrl);
-  request.send();
-
-  request.onreadystatechange = function () {
-    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-      console.log(request.responseText);
-
-      var response = JSON.parse(request.responseText);
-
+  accessCarpoolvoteAPI(acceptUrl,                                                     
+    function (response) {
       handleMatchActionResponse
         (response, $info, 
           "driver_confirm_match", "0", "Error: ", 
           driverPageUpdate);
-    }
-  };
+    });
 }
 
 function cancelDriverMatchFromButton (UUID_driver, UUID_rider, Score, DriverPhone) {
@@ -397,24 +368,13 @@ function cancelDriverMatchFromButton (UUID_driver, UUID_rider, Score, DriverPhon
                                                     '&UUID_rider='  + UUID_rider +
                                                     '&Score='       + Score +
                                                     '&DriverPhone=' + DriverPhone;
-
-  var request = new XMLHttpRequest();
-
-  request.open("GET", cancelUrl);
-  request.send();
-
-  request.onreadystatechange = function () {
-    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-      console.log(request.responseText);
-
-      var response = JSON.parse(request.responseText);
-
+  accessCarpoolvoteAPI(cancelUrl,                                                     
+    function (response) {
       handleMatchActionResponse
         (response, $info, 
           "driver_cancel_confirmed_match", "0", "Error: ", 
-          driverPageUpdate);
-    }
-  };
+          driverPageUpdate);    
+    });
 }
 
 function cancelRiderMatchFromButton (UUID_driver, UUID_rider, Score, RiderPhone) {
@@ -427,24 +387,13 @@ function cancelRiderMatchFromButton (UUID_driver, UUID_rider, Score, RiderPhone)
                                                     '&UUID_rider='  + UUID_rider +
                                                     '&Score='       + Score +
                                                     '&RiderPhone='  + RiderPhone;
-
-  var request = new XMLHttpRequest();
-
-  request.open("GET", cancelUrl);
-  request.send();
-
-  request.onreadystatechange = function () {
-    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-      console.log(request.responseText);
-
-      var response = JSON.parse(request.responseText);
-
+  accessCarpoolvoteAPI(cancelUrl,
+    function (response) {
       handleMatchActionResponse
         (response, $info, 
           "rider_cancel_confirmed_match", "0", "Error: ", 
           riderPageUpdate);
-    }
-  };
+    });
 }
 
 function createListButton (dbFunctionName, buttonCaption, buttonClass,
@@ -466,17 +415,8 @@ function driverProposedMatches () {
     'UUID=' + data.uuid +
     '&DriverPhone=' + data.phone;
 
-  var request = new XMLHttpRequest();
-
-  request.open("GET", url);
-  request.send();
-
-  request.onreadystatechange = function () {
-    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-      console.log(request.responseText);
-
-      var resp = JSON.parse(request.responseText);
-
+  accessCarpoolvoteAPI(url, 
+    function (resp) {
       resp.forEach(val => {
 // var acceptUrl = remoteUrl + '/accept-driver-match?UUID_driver=' + val.driver_proposed_matches.uuid_driver +
 //                             '&UUID_rider=' + val.driver_proposed_matches.uuid_rider +
@@ -502,8 +442,7 @@ function driverProposedMatches () {
        
         // https://api.carpoolvote.com/v2.0/accept-driver-match?UUID_driver=1e6e274d-ad33-4127-9f02-f35b48a07897&UUID_rider=1e6e274d-ad33-4127-9f02-f35b48a07897&Score=123&DriverPhone=123
       });
-    }
-  };
+  });
 }
 
 function driverConfirmedMatches () {
@@ -512,17 +451,8 @@ function driverConfirmedMatches () {
     'UUID=' + data.uuid +
     '&DriverPhone=' + data.phone;
 
-  var request = new XMLHttpRequest();
-
-  request.open("GET", url);
-  request.send();
-
-  request.onreadystatechange = function () {
-    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-      console.log(request.responseText);
-
-      var resp = JSON.parse(request.responseText);
-
+  accessCarpoolvoteAPI(url, 
+    function (resp) {
       resp.forEach(val => {
 
         var cancelButtonInList =  createListButton("cancelDriverMatchFromButton", "Cancel", ' class="button button--danger" ',
@@ -544,9 +474,8 @@ function driverConfirmedMatches () {
         // $(listSelector).append('<li> (after clicking Cancel, refresh browser page) </li>');
 
         // https://api.carpoolvote.com/v2.0/cancel-driver-match?UUID_driver=1e6e274d-ad33-4127-9f02-f35b48a07897&UUID_rider=1e6e274d-ad33-4127-9f02-f35b48a07897&Score=123&DriverPhone=123
-      });
-    }
-  };
+      });    
+  });
 }
 
 function riderExists () {
@@ -557,18 +486,10 @@ function riderExists () {
     'UUID=' + data.uuid +
     '&RiderPhone=' + data.phone;
 
-  var request = new XMLHttpRequest();
-
-  request.open("GET", url);
-  request.send();
-
-  request.onreadystatechange = function () {
-    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-      console.log(request.responseText);
-
-      var resp = JSON.parse(request.responseText);
-
+  accessCarpoolvoteAPI (url, 
+    function (resp) {
       var keys = Object.keys(resp);
+
       if (keys) {
         var info = resp[keys[0]].toString();
         // $info.text(info);
@@ -587,8 +508,7 @@ function riderExists () {
           riderConfirmedMatch();
         }
       }
-    }
-  };
+    });
 }
 
 function riderInfo () {
@@ -597,18 +517,10 @@ function riderInfo () {
     'UUID=' + data.uuid +
     '&RiderPhone=' + data.phone;
 
-  var request = new XMLHttpRequest();
-
-  request.open("GET", url);
-  request.send();
-
-  request.onreadystatechange = function () {
-    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-      console.log(request.responseText);
-
-      var resp = JSON.parse(request.responseText);
-
+  accessCarpoolvoteAPI(url, 
+    function (resp) {
       var keys = Object.keys(resp);
+      
       if (keys) {
 
         if (keys[0] == "rider_info" ) {
@@ -626,8 +538,7 @@ function riderInfo () {
           $("#riderInfo ul").append(tempList);
         }
       }
-    }
-  };
+    });
 }
 
 function riderConfirmedMatch () {
@@ -638,17 +549,8 @@ function riderConfirmedMatch () {
     'UUID=' + data.uuid +
     '&RiderPhone=' + data.phone;
 
-  var request = new XMLHttpRequest();
-
-  request.open("GET", url);
-  request.send();
-
-  request.onreadystatechange = function () {
-    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-      console.log(request.responseText);
-
-      var resp = JSON.parse(request.responseText);
-
+  accessCarpoolvoteAPI(url, 
+    function (resp) {
       var cancelButtonInList =  createListButton("cancelRiderMatchFromButton", "Cancel", ' class="button button--danger" ',
             resp.rider_confirmed_match.uuid_driver, resp.rider_confirmed_match.uuid_rider,
             resp.rider_confirmed_match.score, data.phone);
@@ -662,7 +564,26 @@ function riderConfirmedMatch () {
         $(listSelector).append('<li class="match-info-item">  driver phone - ' + resp.rider_confirmed_match.DriverPhone + '</li>');
         $(listSelector).append('<li class="match-info-item">  driver email - ' + resp.rider_confirmed_match.DriverEmail + '</li>');
         $(listSelector).append('<li class="list_button">' + cancelButtonInList + '</li>');
-      }
+      }      
+    });
+}
+
+function accessCarpoolvoteAPI (url, handlerFunction) {
+  var request = new XMLHttpRequest();
+
+  request.open("GET", url);
+
+  request.onreadystatechange = handlerDoneCheck;
+
+  request.send();
+
+  function handlerDoneCheck () {
+    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+      console.log(request.responseText);
+
+      var resp = JSON.parse(request.responseText);
+
+      handlerFunction(resp);
     }
-  };
+  }
 }
