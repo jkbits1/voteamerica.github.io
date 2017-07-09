@@ -644,13 +644,89 @@ function createListItems (captions, details) {
     return spanCaptions[idx] + infoItem;
   });
 
-  liItems = liTexts.map(function (value) {
+  var liItems = liTexts.map(function (value) {
     return '<li class="match-info-item">' + value + '</li>';
   });
 
   liItems.forEach(function (liItem) {
     listItemsFragment += liItem;
   });
+
+  return listItemsFragment;
+}
+
+function descListTermId (caption) {
+  var characters = caption.split('');
+
+  var termId = characters.filter(function (char){
+    return char !== ' ';
+  });
+
+  return termId.join('');
+}
+
+function createHeaderListItems (captions, details) {
+  var listItemsFragment = '';
+
+  var termIds = captions.map(function (caption){
+    return descListTermId(caption);
+  });
+
+  var headerCaptions = captions.map(function (caption, idx) {
+    return "<h3 id='" + termIds[idx] + "' class='liLabel'>" + caption + "</h3>"; 
+  });
+
+  var infoItems = details.map(function (infoItem, idx) {
+    return "<span aria-labelledby='" + termIds[idx] + "'>" + infoItem + "</span>";
+  });
+
+  var liTexts = infoItems.map(function (infoItem, idx) {
+    return headerCaptions[idx] + infoItem;
+  });
+
+  var liItems = liTexts.map(function (value) {
+    return '<li class="match-info-item">' + value + '</li>';
+  });
+
+// reduce
+  listItemsFragment = liItems.reduce(function (fragment, dlItem) {
+    return fragment + dlItem;
+  }, "");
+
+  // liItems.forEach(function (liItem) {
+  //   listItemsFragment += liItem;
+  // });
+
+  return listItemsFragment;
+}
+
+function createDescListItems (captions, details) {
+  var listItemsFragment = '';
+
+  var termIds = captions.map(function (caption) {
+    return descListTermId(caption);
+  });
+
+  var spanCaptions = captions.map(function (caption, idx) {
+    return "<dt id='" + termIds[idx] + "' class='liLabel'>" + caption + "</dt>"; 
+  });
+
+  var infoItems = details.map(function (infoItem, idx) {
+    return "<dd role='definition' aria-labelledby='" + termIds[idx] + "'>" + infoItem + "</dd>";
+  });
+
+  var dlItems = infoItems.map(function (infoItem, idx) {
+    return spanCaptions[idx] + infoItem;
+  });
+
+// reduce
+  listItemsFragment = dlItems.reduce(function (fragment, dlItem) {
+    return fragment + dlItem;
+  }, "");
+
+  // liItems.forEach(function (liItem) {
+  //   listItemsFragment += liItem;
+  // });
 
   return listItemsFragment;
 }
@@ -685,9 +761,11 @@ function riderInfo () {
 
           listItems += li;
 
-          listItems += createListItems(infoListCaptions, riderInfoList);
+          // listItems += createListItems(infoListCaptions, riderInfoList);
+          listItems += createDescListItems(infoListCaptions, riderInfoList);
 
-          $("#riderInfo ul").append(listItems);
+          // $("#riderInfo ul").append(listItems);
+          $("#riderInfo dl").append(listItems);
         }
       }
     });
@@ -724,7 +802,8 @@ function riderConfirmedMatch () {
             resp.rider_confirmed_match.uuid_driver, resp.rider_confirmed_match.uuid_rider,
             resp.rider_confirmed_match.score, data.phone);
 
-        listItems += createListItems(infoListCaptions, matchInfoList);
+        // listItems += createListItems(infoListCaptions, matchInfoList);
+        listItems += createHeaderListItems(infoListCaptions, matchInfoList);
         listItems += '<li class="list_button">' + cancelButtonInList + '</li>';
 
         $(listSelector).append(listItems);      
