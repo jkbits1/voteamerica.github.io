@@ -518,7 +518,9 @@ function driverProposedMatches () {
         // $(listSelector).append('<li class="match-info-item">  rider contact method, notes - ' + match.driver_proposed_matches.RiderPreferredContact + ' ' + match.driver_proposed_matches.RiderAccommodationNotes + '</li>');
         // $(listSelector).append('<li class="list_button">' + acceptButtonInList + '</li>');
 
-        listItems += createListItems(infoListCaptions, matchInfoList);
+        // listItems += createListItems(infoListCaptions, matchInfoList);
+        listItems += createHeaderListItems(infoListCaptions, matchInfoList);
+
         listItems += '<li class="list_button">' + acceptButtonInList + '</li>';
 
         $(listSelector).append(listItems);      
@@ -583,7 +585,9 @@ function driverConfirmedMatches () {
 
         // $(listSelector).append('<li class="list_button">' + cancelButtonInList + '</li>');
 
-        listItems += createListItems(infoListCaptions, matchInfoList);
+        // listItems += createListItems(infoListCaptions, matchInfoList);
+        listItems += createHeaderListItems(infoListCaptions, matchInfoList);
+
         listItems += '<li class="list_button">' + cancelButtonInList + '</li>';
 
         $(listSelector).append(listItems);      

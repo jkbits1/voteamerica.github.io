@@ -827,6 +827,14 @@ h3.self-service-heading {
         margin-top: 10px;
         margin-left: -25px;
     }
+
+    .match-info-item h3 {        
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+
+        font-size: 1.0em;        
+    }
 }
 
 @media (min-width: 400px) {
