@@ -42,28 +42,35 @@ title: Manage your matches
                     <p>Welcome to the new self-service admin page. Please note that this section is still a work in progress. Some features are still under contruction, and may be a little temperamental. If you encounter any issues, please <a href="mailto:selfservice@carpoolvote.com">email us</a>. Thank you for your understanding!</p>
                     <p id="infoAdmin"></p>
 
+                    <!--https://www.w3.org/TR/2017/WD-wai-aria-practices-1.1-20170628/#intro-->
+                    <!--https://www.w3.org/TR/2017/WD-wai-aria-practices-1.1-20170628/examples/landmarks/region.html-->
+                    <!--https://www.w3.org/TR/html-aria/-->
+                    <!--https://www.w3.org/TR/2017/WD-wai-aria-practices-1.1-20170628/examples/disclosure/disclosure-faq.html-->
+                    <!--headers in the list !! -->
+                    <!--https://snook.ca/archives/html_and_css/definition-lists-v-tables-->
+
                     <!--https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute  -->
                     <!--https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby-->
-                    <div id="driverInfo" aria-labelledby="driverInfoHeader">
+                    <section id="driverInfo" aria-labelledby="driverInfoHeader">
                         <h2 id="driverInfoHeader" class="self-service-heading">Driver Info</h2>
                         <ul aria-labelledby="driverInfoHeader"></ul>
-                    </div>
+                    </section>
                     
-                    <div id="driverProposedMatches" aria-labelledby="driverProposedHeader">
+                    <section id="driverProposedMatches" aria-labelledby="driverProposedHeader">
                         <h2 id="driverProposedHeader" class="self-service-heading">Driver Proposed Matches</h2>
                         <ul aria-labelledby="driverProposedHeader"></ul>
                         <br><br>
-                    </div>
+                    </section>
                     
-                    <div id="driverConfirmedMatches" aria-labelledby="driverConfirmedHeader">
+                    <section id="driverConfirmedMatches" aria-labelledby="driverConfirmedHeader">
                         <h2 id="driverConfirmedHeader" class="self-service-heading">Driver Confirmed Matches</h2>
                         <ul aria-labelledby="driverConfirmedHeader"></ul>
                         <br><br>
-                    </div>
+                    </section>
                     
                     <div id="riderInfo" aria-labelledby="riderInfoHeader">
                         <h2 id="riderInfoHeader" class="self-service-heading">Rider Info</h2>
-                        <ul aria-labelledby="riderInfoHeader"></ul>
+                        <dl aria-labelledby="riderInfoHeader"></dl>
                     </div>
                     
                     <div id="riderConfirmedMatch" aria-labelledby="riderConfirmedHeader">
