@@ -784,12 +784,6 @@ li.list_button{
     margin-bottom: 30px;
 }
 
-li.match-info-item {
-    list-style-type: none;
-    /*margin-bottom: 7px;*/
-    margin-left: -24px;
-}
-
 h2.self-service-heading {
     /*margin-bottom: -2px;*/
     margin-bottom: 20px;
@@ -798,13 +792,6 @@ h2.self-service-heading {
 
 h3.self-service-heading {
     margin-bottom: -2px;
-}
-
-.liLabel {
-    width: 140px;
-    display: inline-block;
-    font-weight: 700;
-    line-height: 1.4em;
 }
 
 .self-service {
@@ -816,18 +803,31 @@ h3.self-service-heading {
     margin-bottom: 10px;
 }
 
-button.self-service-list-button {
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    margin-left: 115px;
-}
-
 #info {
     font-weight: bold;
 }
 
 /* Media queries */
+
+@media (min-width: 100px) {
+    .liLabel {
+        width: 100%;
+        display: inline-block;
+        font-weight: 700;
+        line-height: 1.4em;
+    }
+
+    li.match-info-item {
+        list-style-type: none;
+        margin-left: -24px;
+        line-height: 26px;
+    }
+
+    button.self-service-list-button {
+        margin-top: 10px;
+        margin-left: -25px;
+    }
+}
 
 @media (min-width: 400px) {
     .nav__link {
@@ -922,6 +922,19 @@ button.self-service-list-button {
         min-height: 18.5px; // time-input polyfill bugfix
     }
 
+    .liLabel {
+        width: 140px;
+        padding-right: 10px;
+    }
+
+    li.match-info-item {
+        list-style-type: none;
+        margin-left: -24px;
+    }
+
+    button.self-service-list-button {
+        margin-left: 115px;
+    }
 
     /* Salvattore.js */
     #grid[data-columns]::before {
